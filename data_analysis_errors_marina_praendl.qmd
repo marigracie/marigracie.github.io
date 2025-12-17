@@ -1,0 +1,155 @@
+---
+title: ""
+author: "Marina Prändl"
+format: revealjs
+editor: visual
+---
+
+------------------------------------------------------------------------
+
+## Data Analysis Errors: Examples of Actual Mistakes in Scientific Publications
+
+Marina Prändl, praendl.marina\@stud.hs-fresenius.de, 401045975
+
+------------------------------------------------------------------------
+
+## Agenda
+
+-   Introduction: Why Data Analysis matters
+
+-   Showcasing Example Error with R Code in RStudio
+
+-   Real Error Examples
+
+-   Case Example: COVID-19 Excel Error
+
+-   Key takeaways
+
+------------------------------------------------------------------------
+
+### Introduction: Why Data Analysis matters
+
+**What it is:** data collection -\> cleaning / structuring with specific methods -\> applying methods like statistics to analyse
+
+**What it does:**
+
+1\. New Discoveries (e.g. research for prevention/ cure of cancer)
+
+2\. Repetitive large-scale decisions (e.g. company analysing product range)
+
+**Why it matters:** improves decision-making -\> increases productivity/ efficiency
+
+------------------------------------------------------------------------
+
+### Showcasing Example Error with R Code in RStudio
+
+``` r
+library(tidyverse)
+library(babynames)
+
+# Select 10 entries: year, name, frequency
+starting_data <- babynames %>%
+  filter(year == 2000, sex == "F") %>%
+  select(year, name, frequency = n) %>%
+  slice(1:10)
+```
+
+------------------------------------------------------------------------
+
+### Showcasing Example Error with R Code in RStudio
+
+``` r
+# Add duplicates: intentionally repeat 2 names
+data_with_duplicates <- bind_rows(
+  starting_data,
+  starting_data %>% slice(1), # first name duplicated
+  starting_data %>% slice(2) # second name duplicated
+  )
+
+# Show dataset with duplicates
+data_with_duplicates
+```
+
+---
+
+### Showcasing Example Error with R Code in RStudio
+
+``` r
+# Remove duplicates
+clean_data <- distinct(data_with_duplicates)
+
+# Show dataset without duplicates
+clean_data
+```
+
+---
+
+### Real Error Example: Programming Error in Springer Nature system switch
+
+**Background:** The publisher Springer Nature switched citation systems
+
+**Error:** Systemic Misallocation of Citation Credit
+
+**Cause:** Programming Bug During Metadata Transition (switch from page numbers to unique article numbers)
+
+**Consequence:** Distorted Scientific Evaluation (False Boost of Importance, Erosion of Trust)
+
+**-\> Solution:** Software testing before switching such impactful systems to prevent programming bugs.
+
+------------------------------------------------------------------------
+
+### Real Error Example: Statistical Errors Unchecked Due to Data Withholding
+
+**Background:** Potential Statistical Error detected
+
+**Error:** Failure to uphold Scientific Transparency and Reproducibility
+
+**Cause:** Refusal of Data Sharing (Legal concerns, risk of reputation damage, closed matter)
+
+**Consequence:** Damaged Trust in Publication (conclusions remain doubtful)
+
+**-\> Solution:** Push raw data releases for Transparency and Reproducibility. Legal concerns? -\> prioritize accuracy/ credibility of scientific work over reputation
+
+------------------------------------------------------------------------
+
+### COVID-19 Excel Error in UK
+
+**Error:** Data Import Failure in Excel (used to keep track of cases + contact tracing system)
+
+------------------------------------------------------------------------
+
+### COVID-19 Excel Error in UK
+
+**Error:** Data Import Failure in Excel (used to keep track of cases + contact tracing system)
+
+**Cause:** File Limitation .xls = max. 65,536 rows, no error warning, large dataset = easier overlooking error
+
+------------------------------------------------------------------------
+
+### COVID-19 Excel Error in UK
+
+**Error:** Data Import Failure
+
+**Cause:** File Limitation .xls = max. 65,536 rows, no error warning, large dataset = easier overlooking error
+
+**Consequence:** 15,841 positive COVID-19 cases left out of official reports\
+-\> Estimation: 126,000-185,000 extra infections and 1,500-2,000 extra deaths six weeks following the glitch
+
+------------------------------------------------------------------------
+
+### Key Takeaways
+
+-   Data Analysis important -\> new discoveries and strategically approach decision making
+
+-   Seemingly small mistakes -\> potentially huge impact
+
+-   Mixture of human and computational errors / accidental or deliberately
+
+-   Transparency and Reproducibility are crucial maintaining accuracy and credibility
+
+------------------------------------------------------------------------
+
+## References
+
+::: {#refs}
+:::
